@@ -1,16 +1,16 @@
-FROM python:3.11
+# Use Python 3.12 base image
+FROM python:3.12-slim AS base
 
-# Set working directory
-WORKDIR /app
-
-# Install system dependencies for dlib & face recognition
+# Install system dependencies (only necessary ones)
 RUN apt-get update && apt-get install -y \
     libgtk-3-dev \
-    libboost-all-dev \
     libopenblas-dev \
     liblapack-dev \
     libx11-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt .
